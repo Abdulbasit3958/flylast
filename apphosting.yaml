@@ -1,0 +1,33 @@
+# Firebase App Hosting config for FlyLast.
+# Fill the four NEXT_PUBLIC_FIREBASE_* values from: Firebase console → Project settings → Your apps → Web app.
+# These are public web-app identifiers (not secrets); they're needed at build time and runtime.
+runConfig:
+  minInstances: 0
+  maxInstances: 2
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
+
+env:
+  - variable: NEXT_PUBLIC_USE_EMULATOR
+    value: "0"
+    availability: [BUILD, RUNTIME]
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: YOUR_PROJECT_ID
+    availability: [BUILD, RUNTIME]
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: YOUR_WEB_API_KEY
+    availability: [BUILD, RUNTIME]
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: YOUR_PROJECT_ID.firebaseapp.com
+    availability: [BUILD, RUNTIME]
+  # Seat hold length in seconds (600 = 10 minutes).
+  - variable: NEXT_PUBLIC_SEAT_HOLD_SECONDS
+    value: "600"
+    availability: [BUILD, RUNTIME]
+  # Optional: Gemini for the AI Deal Finder. Create the secret first:
+  #   npx firebase-tools@latest apphosting:secrets:set GEMINI_API_KEY
+  # then uncomment:
+  # - variable: GEMINI_API_KEY
+  #   secret: GEMINI_API_KEY
+  #   availability: [RUNTIME]

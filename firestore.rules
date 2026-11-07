@@ -1,0 +1,17 @@
+rules_version = '2';
+// FlyLast: the browser never reads or writes Firestore directly.
+// All access goes through Next.js API routes (Firebase Admin SDK), which enforce
+// roles, approval status, traveller-only subscriptions and offer eligibility.
+// This guarantees airline / agency / admin clients cannot create subscription
+// records and nobody can read restricted offer details or booking URLs.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /subscriptions/{id} {
+      allow create, update, delete: if false; // server-controlled activation & expiry only
+      allow read: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
